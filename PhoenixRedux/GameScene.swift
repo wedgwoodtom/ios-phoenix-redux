@@ -86,7 +86,7 @@ class GameScene: SKScene {
     }
     
     func setupShip() {
-    }
+    }   
 
     func fireBullet() {
 
