@@ -15,6 +15,10 @@
 		4AD90DB71E7CEF9A00525B5D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AD90DB51E7CEF9A00525B5D /* Main.storyboard */; };
 		4AD90DB91E7CEF9A00525B5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AD90DB81E7CEF9A00525B5D /* Assets.xcassets */; };
 		4AD90DBC1E7CEF9A00525B5D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AD90DBA1E7CEF9A00525B5D /* LaunchScreen.storyboard */; };
+		4AD90DC41E7CF02500525B5D /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AD90DC31E7CF02500525B5D /* background@2x.png */; };
+		4AD90DC71E7CFD7100525B5D /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AD90DC61E7CFD7100525B5D /* Spaceship.png */; };
+		4AF6FB7C1E7E67AB00C0167F /* bullet.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AF6FB7B1E7E67AB00C0167F /* bullet.png */; };
+		4AF6FB7E1E7E770E00C0167F /* bird.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AF6FB7D1E7E770E00C0167F /* bird.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +32,10 @@
 		4AD90DB81E7CEF9A00525B5D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4AD90DBB1E7CEF9A00525B5D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4AD90DBD1E7CEF9A00525B5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4AD90DC31E7CF02500525B5D /* background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "background@2x.png"; path = "../background@2x.png"; sourceTree = "<group>"; };
+		4AD90DC61E7CFD7100525B5D /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Spaceship.png; path = Assets.xcassets/Spaceship.imageset/Spaceship.png; sourceTree = "<group>"; };
+		4AF6FB7B1E7E67AB00C0167F /* bullet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bullet.png; sourceTree = "<group>"; };
+		4AF6FB7D1E7E770E00C0167F /* bird.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bird.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +68,7 @@
 		4AD90DAA1E7CEF9A00525B5D /* PhoenixRedux */ = {
 			isa = PBXGroup;
 			children = (
+				4AD90DC51E7CF07B00525B5D /* images */,
 				4AD90DAB1E7CEF9A00525B5D /* AppDelegate.swift */,
 				4AD90DAD1E7CEF9A00525B5D /* GameScene.sks */,
 				4AD90DAF1E7CEF9A00525B5D /* Actions.sks */,
@@ -71,6 +80,17 @@
 				4AD90DBD1E7CEF9A00525B5D /* Info.plist */,
 			);
 			path = PhoenixRedux;
+			sourceTree = "<group>";
+		};
+		4AD90DC51E7CF07B00525B5D /* images */ = {
+			isa = PBXGroup;
+			children = (
+				4AF6FB7D1E7E770E00C0167F /* bird.png */,
+				4AF6FB7B1E7E67AB00C0167F /* bullet.png */,
+				4AD90DC61E7CFD7100525B5D /* Spaceship.png */,
+				4AD90DC31E7CF02500525B5D /* background@2x.png */,
+			);
+			name = images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -133,10 +153,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AD90DC71E7CFD7100525B5D /* Spaceship.png in Resources */,
 				4AD90DB71E7CEF9A00525B5D /* Main.storyboard in Resources */,
+				4AF6FB7E1E7E770E00C0167F /* bird.png in Resources */,
 				4AD90DAE1E7CEF9A00525B5D /* GameScene.sks in Resources */,
 				4AD90DB91E7CEF9A00525B5D /* Assets.xcassets in Resources */,
 				4AD90DBC1E7CEF9A00525B5D /* LaunchScreen.storyboard in Resources */,
+				4AF6FB7C1E7E67AB00C0167F /* bullet.png in Resources */,
+				4AD90DC41E7CF02500525B5D /* background@2x.png in Resources */,
 				4AD90DB01E7CEF9A00525B5D /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -314,6 +338,7 @@
 				4AD90DC21E7CEF9A00525B5D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
