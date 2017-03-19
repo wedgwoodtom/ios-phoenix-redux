@@ -78,7 +78,7 @@ class GameScene: SKScene {
 //                                              SKAction.removeFromParent()]))
 //        }
     }
-
+   
 
     func handleTouch(toPoint pos : CGPoint) {
         ship?.position.x = pos.x
@@ -86,7 +86,7 @@ class GameScene: SKScene {
     }
     
     func setupShip() {
-    }   
+    }
 
     func fireBullet() {
 
