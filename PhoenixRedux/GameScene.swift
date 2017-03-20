@@ -54,18 +54,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 node.removeFromParent()
             })
 
-            let prevTouchInProgres = touchInProgress;
-            touchInProgress = false;
+//            let prevTouchInProgres = touchInProgress;
+//            touchInProgress = false;
             self.explosion(pos: (ship?.position)!)
 
             let fadeOut = SKAction.fadeOut(withDuration: 0.5)
             let move = SKAction.move(to: CGPoint(x: self.size.width/2, y: self.size.height/8), duration: 0.5)
-            let fadeIn = SKAction.fadeIn(withDuration: 2)
+            let fadeIn = SKAction.fadeIn(withDuration: 1)
+//            let spin = SKAction.rotate(byAngle: CGFloat(2*M_PI), duration: 0.5)
             let firing = SKAction.run({
-                self.touchInProgress = prevTouchInProgres
+//                self.touchInProgress = prevTouchInProgres
                 self.birdsAttacking = true
             })
-            ship?.run(SKAction.sequence([fadeOut, move, fadeIn, firing]))
+            ship?.run(SKAction.sequence([fadeOut, fadeIn, move, firing]))
 
         }
         else if ((contact.bodyA.categoryBitMask == CollisionType.Bird.rawValue && contact.bodyB.categoryBitMask == CollisionType.Bullet.rawValue)
@@ -273,8 +274,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         let bird = SKSpriteNode(imageNamed: "bird.png")
         bird.name = "bird"
-        bird.xScale = 0.5
-        bird.yScale = 0.5
+        bird.xScale = 0.75
+        bird.yScale = 0.75
 //        let randomX = Int(arc4random_uniform(UInt32(Int(self.size.width))) + 1)
 
         let randomX = GKRandomSource.sharedRandom().nextInt(upperBound: Int(self.size.width))
@@ -284,7 +285,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let spin = SKAction.rotate(byAngle: CGFloat(3*M_PI), duration: 0.5)
         let fly = SKAction.moveTo(y: 0, duration: 3)
         let delete = SKAction.removeFromParent()
-        bird.run(SKAction.sequence([spin, fly, delete]))
+//        bird.run(SKAction.sequence([spin, fly, delete]))
+        bird.run(SKAction.sequence([fly, delete]))
 
         self.addChild(bird)
 
