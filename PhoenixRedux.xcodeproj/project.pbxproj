@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A88618E1E7F577600D52D06 /* star_fields.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A88618D1E7F577600D52D06 /* star_fields.png */; };
+		4A8861901E7F62CE00D52D06 /* ExplosionParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4A88618F1E7F62CE00D52D06 /* ExplosionParticle.sks */; };
 		4AD90DAC1E7CEF9A00525B5D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD90DAB1E7CEF9A00525B5D /* AppDelegate.swift */; };
 		4AD90DAE1E7CEF9A00525B5D /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4AD90DAD1E7CEF9A00525B5D /* GameScene.sks */; };
 		4AD90DB01E7CEF9A00525B5D /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4AD90DAF1E7CEF9A00525B5D /* Actions.sks */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4A88618D1E7F577600D52D06 /* star_fields.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_fields.png; sourceTree = "<group>"; };
+		4A88618F1E7F62CE00D52D06 /* ExplosionParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ExplosionParticle.sks; sourceTree = "<group>"; };
 		4AD90DA81E7CEF9A00525B5D /* PhoenixRedux.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhoenixRedux.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AD90DAB1E7CEF9A00525B5D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4AD90DAD1E7CEF9A00525B5D /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -68,6 +72,7 @@
 		4AD90DAA1E7CEF9A00525B5D /* PhoenixRedux */ = {
 			isa = PBXGroup;
 			children = (
+				4A88618F1E7F62CE00D52D06 /* ExplosionParticle.sks */,
 				4AD90DC51E7CF07B00525B5D /* images */,
 				4AD90DAB1E7CEF9A00525B5D /* AppDelegate.swift */,
 				4AD90DAD1E7CEF9A00525B5D /* GameScene.sks */,
@@ -85,6 +90,7 @@
 		4AD90DC51E7CF07B00525B5D /* images */ = {
 			isa = PBXGroup;
 			children = (
+				4A88618D1E7F577600D52D06 /* star_fields.png */,
 				4AF6FB7D1E7E770E00C0167F /* bird.png */,
 				4AF6FB7B1E7E67AB00C0167F /* bullet.png */,
 				4AD90DC61E7CFD7100525B5D /* Spaceship.png */,
@@ -157,9 +163,11 @@
 				4AD90DB71E7CEF9A00525B5D /* Main.storyboard in Resources */,
 				4AF6FB7E1E7E770E00C0167F /* bird.png in Resources */,
 				4AD90DAE1E7CEF9A00525B5D /* GameScene.sks in Resources */,
+				4A88618E1E7F577600D52D06 /* star_fields.png in Resources */,
 				4AD90DB91E7CEF9A00525B5D /* Assets.xcassets in Resources */,
 				4AD90DBC1E7CEF9A00525B5D /* LaunchScreen.storyboard in Resources */,
 				4AF6FB7C1E7E67AB00C0167F /* bullet.png in Resources */,
+				4A8861901E7F62CE00D52D06 /* ExplosionParticle.sks in Resources */,
 				4AD90DC41E7CF02500525B5D /* background@2x.png in Resources */,
 				4AD90DB01E7CEF9A00525B5D /* Actions.sks in Resources */,
 			);
