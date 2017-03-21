@@ -32,7 +32,7 @@ enum GameState {
     case NotStarted
     case Running
     case ShipDestroyed
-    case Paused
+//    case Paused
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
@@ -45,8 +45,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private var contentCreated : Bool = false;
 
-    private var touchInProgress : Bool = false;
-    private var birdsAttacking : Bool = true;
+    private var gameState: GameState = GameState.NotStarted
+    private var touchIsDown: Bool = false;
 
     override func didMove(to view: SKView) {
         
@@ -84,7 +84,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             ship?.physicsBody?.contactTestBitMask = CollisionType.Bird.rawValue
             ship?.physicsBody?.collisionBitMask = CollisionType.Bird.rawValue
 
-            self.birdsAttacking = false
+            gameState = GameState.NotStarted
             toggleGameControls(on: true)
 
             let firingTimer = Timer.scheduledTimer(
@@ -131,7 +131,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     func startGame() {
         toggleGameControls(on: false)
-        self.birdsAttacking = true
+        gameState = GameState.Running
     }
 
     func preloadSounds() {
@@ -161,15 +161,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     func handleTouch(toPoint pos : CGPoint) {
 
-        let sprites:[SKNode] = self.nodes(at: pos)
-        for sprite in sprites {
-            if (sprite.name == "startButton") {
-                startGame()
-                return
+        if (gameState == GameState.NotStarted) {
+            let sprites: [SKNode] = self.nodes(at: pos)
+            for sprite in sprites {
+                if (sprite.name == "startButton") {
+                    startGame()
+                    return
+                }
             }
         }
 
-        ship?.position.x = pos.x
+        if (gameState == GameState.Running) {
+            ship?.position.x = pos.x
+        }
     }
     
     func setupShip() {
@@ -177,8 +181,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     func fireBullet() {
 
-        if (touchInProgress == false) {
-            return
+        if (touchIsDown == false || gameState != GameState.Running) {
+           return
         }
 
         let bullet = SKSpriteNode(imageNamed: "bullet.png")
@@ -204,7 +208,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     func spawnPhoenix() {
 
-        if (birdsAttacking == false) {
+        if (gameState != GameState.Running) {
             return
         }
 
@@ -236,7 +240,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        touchInProgress = true
+        touchIsDown = true
         for touch in touches {
             let pos = touch.location(in: self)
             self.handleTouch(toPoint: pos)
@@ -250,12 +254,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        touchInProgress = false
+        touchIsDown = false
 //        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        touchInProgress = false
+        touchIsDown = false
 //        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
     }
     
@@ -277,8 +281,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             bird?.removeAllActions()
             bird?.removeFromParent()
 
-            // stop other birds
-            birdsAttacking = false;
+            gameState = GameState.ShipDestroyed
             self.enumerateChildNodes(withName: "bird", using: {
                 (node: SKNode!, stop: UnsafeMutablePointer <ObjCBool>) -> Void in
                 node.removeFromParent()
@@ -291,7 +294,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let fadeIn = SKAction.fadeIn(withDuration: 1.5)
 //            let spin = SKAction.rotate(byAngle: CGFloat(2*M_PI), duration: 0.5)
             let firing = SKAction.run({
-                self.birdsAttacking = true
+                self.gameState = GameState.Running
             })
 
             playSound(sound: Sound.ShipExplosion)
