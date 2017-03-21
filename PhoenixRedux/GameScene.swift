@@ -11,13 +11,22 @@ import GameplayKit
 import Foundation
 
 
+enum Sound: String {
+    case ShipShot = "shot1.wav"
+    case BirdShot = "shot2.wav"
+    case BirdExplosion = "explosion2.wav"
+    case ShipExplosion = "ShipHit.wav"
+
+    static func all() -> Array<Sound> {
+        return [ShipShot, BirdShot, BirdExplosion, ShipExplosion]
+    }
+}
 
 enum CollisionType : UInt32 {
     case Ship = 1
     case Bird = 2
     case Bullet = 4
 }
-
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
@@ -31,11 +40,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var birdsAttacking : Bool = true;
 
 
-    // optional protocol
     func didBegin(_ contact: SKPhysicsContact) {
-
-//    func didBeginContact(contact: SKPhysicsContact!) {
-//        print("A collision was detected!")
         if (contact.bodyA.categoryBitMask == CollisionType.Ship.rawValue && contact.bodyB.categoryBitMask == CollisionType.Bird.rawValue) {
 //            print("The collision was between the Ship and a Bird")
 
@@ -54,18 +59,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 node.removeFromParent()
             })
 
-//            let prevTouchInProgres = touchInProgress;
-//            touchInProgress = false;
             self.explosion(pos: (ship?.position)!)
 
             let fadeOut = SKAction.fadeOut(withDuration: 0.5)
             let move = SKAction.move(to: CGPoint(x: self.size.width/2, y: self.size.height/8), duration: 0.5)
-            let fadeIn = SKAction.fadeIn(withDuration: 1)
+            let fadeIn = SKAction.fadeIn(withDuration: 1.5)
 //            let spin = SKAction.rotate(byAngle: CGFloat(2*M_PI), duration: 0.5)
             let firing = SKAction.run({
-//                self.touchInProgress = prevTouchInProgres
                 self.birdsAttacking = true
             })
+
+            playSound(sound: Sound.ShipExplosion)
             ship?.run(SKAction.sequence([fadeOut, fadeIn, move, firing]))
 
         }
@@ -74,7 +78,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //            print("The collision was between a Bird and a Bullet")
             
             // TODO: simplify
-            
+
+            playSound(sound: Sound.BirdShot)
+
             // blow up the bird
             let bird = contact.bodyA.node
             let bullet = contact.bodyB.node
@@ -93,97 +99,45 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             bullet?.removeFromParent()
             
             explosion(pos: explosionPosition!)
-            
-            
+
         }
     }
 
-    /*
-     func lifeLost() {
-     explosion(self.heroSprite.position)
-     
-     self.gamePaused = true
-     
-     
-     // Play sound:
-     runAction(soundAction)
-     
-     // remove one life from hud
-     if self.remainingLifes>0 {
-     self.lifeNodes[remainingLifes-1].alpha=0.0
-     self.remainingLifes--;
-     }
-     
-     // check if remaining lifes exists
-     if (self.remainingLifes==0) {
-     showGameOverAlert()
-     }
-     
-     // Stop movement, fade out, move to center, fade in
-     heroSprite.removeAllActions()
-     self.heroSprite.runAction(SKAction.fadeOutWithDuration(1) , completion: {
-     self.heroSprite.position = CGPointMake(self.size.width/2, self.size.height/2)
-     self.heroSprite.runAction(SKAction.fadeInWithDuration(1), completion: {
-     self.gamePaused = false
-     })
-     })
-     }
- */
-    
-    
+    func preloadSounds() {
+       // They are cached once loaded (or seem to be).  Think about wrapping all this sound fctn into a class
+        for sound in Sound.all() {
+            playSound(sound: sound, playNow: false)
+        }
+
+    }
+
     func explosion(pos: CGPoint) {
         let emitterNode = SKEmitterNode(fileNamed: "ExplosionParticle.sks")
-        
-        
-//        let duration = Double((emitterNode?.numParticlesToEmit)!) / Double((emitterNode?.particleBirthRate)!) + Double((emitterNode?.particleLifetime)! + (emitterNode?.particleLifetimeRange)!/2)
-        
         emitterNode!.particlePosition = pos
         self.addChild(emitterNode!)
 //        emitterNode!.removeFromParent()
+
+        playSound(sound: Sound.BirdExplosion)
         self.run(SKAction.wait(forDuration: 2.0), completion: { emitterNode!.removeFromParent() })
-//        self.run(SKAction.wait(forDuration: duration), completion: { emitterNode!.removeFromParent() })
-
-        
-//        let run = SKAction.run {
-//            emitterNode?.run(<#T##action: SKAction##SKAction#>)
-//        }
-//        emitterNode.run(SKAction.sequence([, fly, delete]))
-
     }
-    
-    
-    // TODO: Use this technique to speed thangs up - copy
-//    func addEmitter(position:CGPoint){
-//        
-//        var emitterToAdd   = emitter.copy() as SKEmitterNode
-//        
-//        emitterToAdd.position = position
-//        
-//        let addEmitterAction = SKAction.runBlock({self.addChild(emitterToAdd)})
-//        
-//        var emitterDuration = CGFloat(emitter.numParticlesToEmit) * emitter.particleLifetime
-//        
-//        let wait = SKAction.waitForDuration(NSTimeInterval(emitterDuration))
-//        
-//        let remove = SKAction.runBlock({emitterToAdd.removeFromParent(); println("Emitter removed")})
-//        
-//        let sequence = SKAction.sequence([addEmitterAction, wait, remove])
-//        
-//        self.runAction(sequence)
-//        
-//        
-//    }
-    
+
+    // TODO: Look at cleaning this up - make it a soundPLayer/Manager or something?
+    func playSound(sound: Sound, playNow: Bool = true) {
+        let sound = SKAction.playSoundFileNamed(sound.rawValue, waitForCompletion: false)
+        if (playNow) {
+            self.run(sound)
+        }
+    }
+
     override func didMove(to view: SKView) {
         
         if (!contentCreated)
         {
-            self.physicsWorld.contactDelegate = self
+            preloadSounds()
 
+            self.physicsWorld.contactDelegate = self
             self.anchorPoint = CGPoint(x: 0, y: 0)
-            
-        
-//            let bgImage = SKSpriteNode(imageNamed: "background.png")
+
             let bgImage = SKSpriteNode(imageNamed: "star_fields.png")
             bgImage.zPosition = -5
         
@@ -220,6 +174,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     userInfo: nil,
                     repeats: true)
 
+            contentCreated = true
+
         }
         
         // Get label node from scene and store it for use later
@@ -230,11 +186,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
 
     }
-   
 
     func handleTouch(toPoint pos : CGPoint) {
         ship?.position.x = pos.x
-//        self.fireBullet()
     }
     
     func setupShip() {
@@ -252,6 +206,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         let move = SKAction.moveTo(y: self.size.height+50, duration: 1)
         let delete = SKAction.removeFromParent()
+        playSound(sound: Sound.ShipShot)
         bullet.run(SKAction.sequence([move, delete]))
         self.addChild(bullet)
 
@@ -298,7 +253,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bird.physicsBody?.contactTestBitMask = CollisionType.Bullet.rawValue
         bird.physicsBody?.collisionBitMask = CollisionType.Bullet.rawValue
     }
-    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 
@@ -368,3 +322,61 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     self.timeOfLastMove = currentTime;
 }
 **/
+
+
+
+/*
+ func lifeLost() {
+ explosion(self.heroSprite.position)
+
+ self.gamePaused = true
+
+
+ // Play sound:
+ runAction(soundAction)
+
+ // remove one life from hud
+ if self.remainingLifes>0 {
+ self.lifeNodes[remainingLifes-1].alpha=0.0
+ self.remainingLifes--;
+ }
+
+ // check if remaining lifes exists
+ if (self.remainingLifes==0) {
+ showGameOverAlert()
+ }
+
+ // Stop movement, fade out, move to center, fade in
+ heroSprite.removeAllActions()
+ self.heroSprite.runAction(SKAction.fadeOutWithDuration(1) , completion: {
+ self.heroSprite.position = CGPointMake(self.size.width/2, self.size.height/2)
+ self.heroSprite.runAction(SKAction.fadeInWithDuration(1), completion: {
+ self.gamePaused = false
+ })
+ })
+ }
+*/
+
+
+
+// TODO: Use this technique to speed thangs up - copy
+//    func addEmitter(position:CGPoint){
+//
+//        var emitterToAdd   = emitter.copy() as SKEmitterNode
+//
+//        emitterToAdd.position = position
+//
+//        let addEmitterAction = SKAction.runBlock({self.addChild(emitterToAdd)})
+//
+//        var emitterDuration = CGFloat(emitter.numParticlesToEmit) * emitter.particleLifetime
+//
+//        let wait = SKAction.waitForDuration(NSTimeInterval(emitterDuration))
+//
+//        let remove = SKAction.runBlock({emitterToAdd.removeFromParent(); println("Emitter removed")})
+//
+//        let sequence = SKAction.sequence([addEmitterAction, wait, remove])
+//
+//        self.runAction(sequence)
+//
+//
+//    }

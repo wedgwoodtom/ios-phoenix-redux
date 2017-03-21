@@ -21,6 +21,15 @@
 		4AD90DC71E7CFD7100525B5D /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AD90DC61E7CFD7100525B5D /* Spaceship.png */; };
 		4AF6FB7C1E7E67AB00C0167F /* bullet.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AF6FB7B1E7E67AB00C0167F /* bullet.png */; };
 		4AF6FB7E1E7E770E00C0167F /* bird.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AF6FB7D1E7E770E00C0167F /* bird.png */; };
+		782FE6151E819CC70033E42C /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 782FE6141E819CC70033E42C /* spark.png */; };
+		782FE6181E819D1F0033E42C /* explosion1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 782FE6171E819D1F0033E42C /* explosion1.mp3 */; };
+		782FE61A1E819D670033E42C /* shot4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 782FE6191E819D670033E42C /* shot4.mp3 */; };
+		782FE61F1E819D920033E42C /* shot3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 782FE61B1E819D920033E42C /* shot3.wav */; };
+		782FE6201E819D920033E42C /* explosion3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 782FE61C1E819D920033E42C /* explosion3.wav */; };
+		782FE6211E819D920033E42C /* shot2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 782FE61D1E819D920033E42C /* shot2.wav */; };
+		782FE6221E819D920033E42C /* ShipHit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 782FE61E1E819D920033E42C /* ShipHit.wav */; };
+		782FE6251E819E160033E42C /* explosion2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 782FE6231E819E160033E42C /* explosion2.wav */; };
+		782FE6261E819E160033E42C /* shot1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 782FE6241E819E160033E42C /* shot1.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +49,15 @@
 		4AD90DC61E7CFD7100525B5D /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Spaceship.png; path = Assets.xcassets/Spaceship.imageset/Spaceship.png; sourceTree = "<group>"; };
 		4AF6FB7B1E7E67AB00C0167F /* bullet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bullet.png; sourceTree = "<group>"; };
 		4AF6FB7D1E7E770E00C0167F /* bird.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bird.png; sourceTree = "<group>"; };
+		782FE6141E819CC70033E42C /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		782FE6171E819D1F0033E42C /* explosion1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = explosion1.mp3; sourceTree = "<group>"; };
+		782FE6191E819D670033E42C /* shot4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shot4.mp3; sourceTree = "<group>"; };
+		782FE61B1E819D920033E42C /* shot3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shot3.wav; sourceTree = "<group>"; };
+		782FE61C1E819D920033E42C /* explosion3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion3.wav; sourceTree = "<group>"; };
+		782FE61D1E819D920033E42C /* shot2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shot2.wav; sourceTree = "<group>"; };
+		782FE61E1E819D920033E42C /* ShipHit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ShipHit.wav; sourceTree = "<group>"; };
+		782FE6231E819E160033E42C /* explosion2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion2.wav; sourceTree = "<group>"; };
+		782FE6241E819E160033E42C /* shot1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shot1.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +90,7 @@
 		4AD90DAA1E7CEF9A00525B5D /* PhoenixRedux */ = {
 			isa = PBXGroup;
 			children = (
+				782FE6161E819D100033E42C /* sounds */,
 				4A88618F1E7F62CE00D52D06 /* ExplosionParticle.sks */,
 				4AD90DC51E7CF07B00525B5D /* images */,
 				4AD90DAB1E7CEF9A00525B5D /* AppDelegate.swift */,
@@ -90,6 +109,7 @@
 		4AD90DC51E7CF07B00525B5D /* images */ = {
 			isa = PBXGroup;
 			children = (
+				782FE6141E819CC70033E42C /* spark.png */,
 				4A88618D1E7F577600D52D06 /* star_fields.png */,
 				4AF6FB7D1E7E770E00C0167F /* bird.png */,
 				4AF6FB7B1E7E67AB00C0167F /* bullet.png */,
@@ -97,6 +117,21 @@
 				4AD90DC31E7CF02500525B5D /* background@2x.png */,
 			);
 			name = images;
+			sourceTree = "<group>";
+		};
+		782FE6161E819D100033E42C /* sounds */ = {
+			isa = PBXGroup;
+			children = (
+				782FE6231E819E160033E42C /* explosion2.wav */,
+				782FE6241E819E160033E42C /* shot1.wav */,
+				782FE61B1E819D920033E42C /* shot3.wav */,
+				782FE61C1E819D920033E42C /* explosion3.wav */,
+				782FE61D1E819D920033E42C /* shot2.wav */,
+				782FE61E1E819D920033E42C /* ShipHit.wav */,
+				782FE6191E819D670033E42C /* shot4.mp3 */,
+				782FE6171E819D1F0033E42C /* explosion1.mp3 */,
+			);
+			name = sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -159,17 +194,26 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				782FE6211E819D920033E42C /* shot2.wav in Resources */,
+				782FE61A1E819D670033E42C /* shot4.mp3 in Resources */,
 				4AD90DC71E7CFD7100525B5D /* Spaceship.png in Resources */,
+				782FE6151E819CC70033E42C /* spark.png in Resources */,
 				4AD90DB71E7CEF9A00525B5D /* Main.storyboard in Resources */,
+				782FE61F1E819D920033E42C /* shot3.wav in Resources */,
 				4AF6FB7E1E7E770E00C0167F /* bird.png in Resources */,
 				4AD90DAE1E7CEF9A00525B5D /* GameScene.sks in Resources */,
 				4A88618E1E7F577600D52D06 /* star_fields.png in Resources */,
+				782FE6201E819D920033E42C /* explosion3.wav in Resources */,
+				782FE6221E819D920033E42C /* ShipHit.wav in Resources */,
 				4AD90DB91E7CEF9A00525B5D /* Assets.xcassets in Resources */,
+				782FE6261E819E160033E42C /* shot1.wav in Resources */,
 				4AD90DBC1E7CEF9A00525B5D /* LaunchScreen.storyboard in Resources */,
 				4AF6FB7C1E7E67AB00C0167F /* bullet.png in Resources */,
+				782FE6251E819E160033E42C /* explosion2.wav in Resources */,
 				4A8861901E7F62CE00D52D06 /* ExplosionParticle.sks in Resources */,
 				4AD90DC41E7CF02500525B5D /* background@2x.png in Resources */,
 				4AD90DB01E7CEF9A00525B5D /* Actions.sks in Resources */,
+				782FE6181E819D1F0033E42C /* explosion1.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
