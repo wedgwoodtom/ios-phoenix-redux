@@ -28,115 +28,39 @@ enum CollisionType : UInt32 {
     case Bullet = 4
 }
 
+enum GameState {
+    case NotStarted
+    case Running
+    case ShipDestroyed
+    case Paused
+}
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
-    private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
-    
+    private var titleLabel: SKLabelNode?
+    private var titleBird: SKSpriteNode?
+    private var titleStart: SKSpriteNode?
+
     private var ship : SKSpriteNode?
     
     private var contentCreated : Bool = false;
+
     private var touchInProgress : Bool = false;
     private var birdsAttacking : Bool = true;
-
-
-    func didBegin(_ contact: SKPhysicsContact) {
-        if (contact.bodyA.categoryBitMask == CollisionType.Ship.rawValue && contact.bodyB.categoryBitMask == CollisionType.Bird.rawValue) {
-//            print("The collision was between the Ship and a Bird")
-
-            let bird = contact.bodyB.node
-            if (bird?.parent == nil)
-            {
-                return
-            }
-            bird?.removeAllActions()
-            bird?.removeFromParent()
-
-            // stop other birds
-            birdsAttacking = false;
-            self.enumerateChildNodes(withName: "bird", using: {
-                (node: SKNode!, stop: UnsafeMutablePointer <ObjCBool>) -> Void in
-                node.removeFromParent()
-            })
-
-            self.explosion(pos: (ship?.position)!)
-
-            let fadeOut = SKAction.fadeOut(withDuration: 0.5)
-            let move = SKAction.move(to: CGPoint(x: self.size.width/2, y: self.size.height/8), duration: 0.5)
-            let fadeIn = SKAction.fadeIn(withDuration: 1.5)
-//            let spin = SKAction.rotate(byAngle: CGFloat(2*M_PI), duration: 0.5)
-            let firing = SKAction.run({
-                self.birdsAttacking = true
-            })
-
-            playSound(sound: Sound.ShipExplosion)
-            ship?.run(SKAction.sequence([fadeOut, fadeIn, move, firing]))
-
-        }
-        else if ((contact.bodyA.categoryBitMask == CollisionType.Bird.rawValue && contact.bodyB.categoryBitMask == CollisionType.Bullet.rawValue)
-            || (contact.bodyA.categoryBitMask == CollisionType.Bullet.rawValue && contact.bodyB.categoryBitMask == CollisionType.Bird.rawValue)) {
-//            print("The collision was between a Bird and a Bullet")
-            
-            // TODO: simplify
-
-            playSound(sound: Sound.BirdShot)
-
-            // blow up the bird
-            let bird = contact.bodyA.node
-            let bullet = contact.bodyB.node
-            let explosionPosition = bird?.position
-            
-            // already removed, skip it
-            if (bird?.parent == nil)
-            {
-                return
-            }
-
-
-            bird?.removeAllActions()
-            bird?.removeFromParent()
-            bullet?.removeAllActions()
-            bullet?.removeFromParent()
-            
-            explosion(pos: explosionPosition!)
-
-        }
-    }
-
-    func preloadSounds() {
-       // They are cached once loaded (or seem to be).  Think about wrapping all this sound fctn into a class
-        for sound in Sound.all() {
-            playSound(sound: sound, playNow: false)
-        }
-
-    }
-
-    func explosion(pos: CGPoint) {
-        let emitterNode = SKEmitterNode(fileNamed: "ExplosionParticle.sks")
-        emitterNode!.particlePosition = pos
-        self.addChild(emitterNode!)
-//        emitterNode!.removeFromParent()
-
-        playSound(sound: Sound.BirdExplosion)
-        self.run(SKAction.wait(forDuration: 2.0), completion: { emitterNode!.removeFromParent() })
-    }
-
-    // TODO: Look at cleaning this up - make it a soundPLayer/Manager or something?
-    func playSound(sound: Sound, playNow: Bool = true) {
-        let sound = SKAction.playSoundFileNamed(sound.rawValue, waitForCompletion: false)
-        if (playNow) {
-            self.run(sound)
-        }
-    }
 
     override func didMove(to view: SKView) {
         
         if (!contentCreated)
         {
-            preloadSounds()
+            // Get label node from scene and store it for use later
+            self.titleLabel = self.childNode(withName: "titleLabel") as? SKLabelNode
+            self.titleBird = self.childNode(withName: "titleBird") as? SKSpriteNode
+            self.titleStart = self.childNode(withName: "titleStart") as? SKSpriteNode
 
             self.physicsWorld.contactDelegate = self
             self.anchorPoint = CGPoint(x: 0, y: 0)
+
+            preloadSounds()
 
             let bgImage = SKSpriteNode(imageNamed: "star_fields.png")
             bgImage.zPosition = -5
@@ -160,6 +84,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             ship?.physicsBody?.contactTestBitMask = CollisionType.Bird.rawValue
             ship?.physicsBody?.collisionBitMask = CollisionType.Bird.rawValue
 
+            self.birdsAttacking = false
+            toggleGameControls(on: true)
+
             let firingTimer = Timer.scheduledTimer(
                     timeInterval: 0.4,
                     target: self,
@@ -175,19 +102,73 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     repeats: true)
 
             contentCreated = true
-
-        }
-        
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
         }
 
     }
 
+    func toggleGameControls(on: Bool = true) {
+        var action = on ? SKAction.fadeIn(withDuration: 2.0) : SKAction.fadeOut(withDuration: 2.0)
+
+        if let label = self.titleLabel {
+            label.position = CGPoint(x: self.size.width/2, y: self.size.height/1.5)
+            label.alpha = 0.0
+            label.run(action)
+
+            if let titleBird = self.titleBird {
+                titleBird.position = CGPoint(x: self.size.width/2, y: label.position.y + titleBird.size.height)
+                titleBird.alpha = 0.0
+                titleBird.run(action)
+            }
+
+            if let titleStart = self.titleStart {
+                titleStart.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
+                titleStart.alpha = 0.0
+                titleStart.run(action)
+                titleStart.name = "startButton"
+            }
+        }
+    }
+
+    func startGame() {
+        toggleGameControls(on: false)
+        self.birdsAttacking = true
+    }
+
+    func preloadSounds() {
+        // They are cached once loaded (or seem to be).  Think about wrapping all this sound fctn into a class
+        for sound in Sound.all() {
+            playSound(sound: sound, playNow: false)
+        }
+    }
+
+    func explosion(pos: CGPoint) {
+        let emitterNode = SKEmitterNode(fileNamed: "ExplosionParticle.sks")
+        emitterNode!.particlePosition = pos
+        self.addChild(emitterNode!)
+//        emitterNode!.removeFromParent()
+
+        playSound(sound: Sound.BirdExplosion)
+        self.run(SKAction.wait(forDuration: 2.0), completion: { emitterNode!.removeFromParent() })
+    }
+
+    // TODO: Look at cleaning this up - make it a soundPLayer/Manager or something?
+    func playSound(sound: Sound, playNow: Bool = true) {
+        let sound = SKAction.playSoundFileNamed(sound.rawValue, waitForCompletion: false)
+        if (playNow) {
+            self.run(sound)
+        }
+    }
+
     func handleTouch(toPoint pos : CGPoint) {
+
+        let sprites:[SKNode] = self.nodes(at: pos)
+        for sprite in sprites {
+            if (sprite.name == "startButton") {
+                startGame()
+                return
+            }
+        }
+
         ship?.position.x = pos.x
     }
     
@@ -255,11 +236,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-
-//        if let label = self.label {
-//            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-//        }
-//
         touchInProgress = true
         for touch in touches {
             let pos = touch.location(in: self)
@@ -288,7 +264,67 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Called before each frame is rendered
     }
 
+    // Collision detection
+    func didBegin(_ contact: SKPhysicsContact) {
+        if (contact.bodyA.categoryBitMask == CollisionType.Ship.rawValue && contact.bodyB.categoryBitMask == CollisionType.Bird.rawValue) {
+//            print("The collision was between the Ship and a Bird")
 
+            let bird = contact.bodyB.node
+            if (bird?.parent == nil)
+            {
+                return
+            }
+            bird?.removeAllActions()
+            bird?.removeFromParent()
+
+            // stop other birds
+            birdsAttacking = false;
+            self.enumerateChildNodes(withName: "bird", using: {
+                (node: SKNode!, stop: UnsafeMutablePointer <ObjCBool>) -> Void in
+                node.removeFromParent()
+            })
+
+            self.explosion(pos: (ship?.position)!)
+
+            let fadeOut = SKAction.fadeOut(withDuration: 0.5)
+            let move = SKAction.move(to: CGPoint(x: self.size.width/2, y: self.size.height/8), duration: 0.5)
+            let fadeIn = SKAction.fadeIn(withDuration: 1.5)
+//            let spin = SKAction.rotate(byAngle: CGFloat(2*M_PI), duration: 0.5)
+            let firing = SKAction.run({
+                self.birdsAttacking = true
+            })
+
+            playSound(sound: Sound.ShipExplosion)
+            ship?.run(SKAction.sequence([fadeOut, fadeIn, move, firing]))
+
+        }
+        else if ((contact.bodyA.categoryBitMask == CollisionType.Bird.rawValue && contact.bodyB.categoryBitMask == CollisionType.Bullet.rawValue)
+                || (contact.bodyA.categoryBitMask == CollisionType.Bullet.rawValue && contact.bodyB.categoryBitMask == CollisionType.Bird.rawValue)) {
+//            print("The collision was between a Bird and a Bullet")
+
+//            playSound(sound: Sound.BirdShot)
+
+            // blow up the bird
+            let bird = contact.bodyA.node
+            let bullet = contact.bodyB.node
+            let explosionPosition = bird?.position
+
+            // already removed, skip it
+            if (bird?.parent == nil)
+            {
+                return
+            }
+
+
+            bird?.removeAllActions()
+            bird?.removeFromParent()
+            bullet?.removeAllActions()
+            bullet?.removeFromParent()
+
+            explosion(pos: explosionPosition!)
+
+        }
+    }
 
 }
 

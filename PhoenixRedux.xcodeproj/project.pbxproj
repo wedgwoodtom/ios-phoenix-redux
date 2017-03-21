@@ -30,6 +30,8 @@
 		782FE6221E819D920033E42C /* ShipHit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 782FE61E1E819D920033E42C /* ShipHit.wav */; };
 		782FE6251E819E160033E42C /* explosion2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 782FE6231E819E160033E42C /* explosion2.wav */; };
 		782FE6261E819E160033E42C /* shot1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 782FE6241E819E160033E42C /* shot1.wav */; };
+		789AA2DB1E81D4AC00C67024 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 789AA2D91E81D4AC00C67024 /* pause.png */; };
+		789AA2DC1E81D4AC00C67024 /* start.png in Resources */ = {isa = PBXBuildFile; fileRef = 789AA2DA1E81D4AC00C67024 /* start.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,8 @@
 		782FE61E1E819D920033E42C /* ShipHit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ShipHit.wav; sourceTree = "<group>"; };
 		782FE6231E819E160033E42C /* explosion2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion2.wav; sourceTree = "<group>"; };
 		782FE6241E819E160033E42C /* shot1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shot1.wav; sourceTree = "<group>"; };
+		789AA2D91E81D4AC00C67024 /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
+		789AA2DA1E81D4AC00C67024 /* start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +113,8 @@
 		4AD90DC51E7CF07B00525B5D /* images */ = {
 			isa = PBXGroup;
 			children = (
+				789AA2D91E81D4AC00C67024 /* pause.png */,
+				789AA2DA1E81D4AC00C67024 /* start.png */,
 				782FE6141E819CC70033E42C /* spark.png */,
 				4A88618D1E7F577600D52D06 /* star_fields.png */,
 				4AF6FB7D1E7E770E00C0167F /* bird.png */,
@@ -208,9 +214,11 @@
 				4AD90DB91E7CEF9A00525B5D /* Assets.xcassets in Resources */,
 				782FE6261E819E160033E42C /* shot1.wav in Resources */,
 				4AD90DBC1E7CEF9A00525B5D /* LaunchScreen.storyboard in Resources */,
+				789AA2DC1E81D4AC00C67024 /* start.png in Resources */,
 				4AF6FB7C1E7E67AB00C0167F /* bullet.png in Resources */,
 				782FE6251E819E160033E42C /* explosion2.wav in Resources */,
 				4A8861901E7F62CE00D52D06 /* ExplosionParticle.sks in Resources */,
+				789AA2DB1E81D4AC00C67024 /* pause.png in Resources */,
 				4AD90DC41E7CF02500525B5D /* background@2x.png in Resources */,
 				4AD90DB01E7CEF9A00525B5D /* Actions.sks in Resources */,
 				782FE6181E819D1F0033E42C /* explosion1.mp3 in Resources */,
