@@ -102,7 +102,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 ship.physicsBody?.affectedByGravity = false
                 ship.physicsBody?.categoryBitMask = CollisionType.Ship.rawValue
                 ship.physicsBody?.contactTestBitMask = CollisionType.Bird.rawValue
-                ship.physicsBody?.collisionBitMask = CollisionType.Bird.rawValue
+                ship.physicsBody?.collisionBitMask = 0
             }
 
             gameState = GameState.NotStarted
@@ -258,7 +258,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bullet.physicsBody?.affectedByGravity = false
         bullet.physicsBody?.categoryBitMask = CollisionType.Bullet.rawValue
         bullet.physicsBody?.contactTestBitMask = CollisionType.Bird.rawValue
-        bullet.physicsBody?.collisionBitMask = CollisionType.Bird.rawValue
+        bullet.physicsBody?.collisionBitMask = 0
     }
 
     func spawnPhoenix() {
@@ -291,7 +291,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bird.physicsBody?.affectedByGravity = false
         bird.physicsBody?.categoryBitMask = CollisionType.Bird.rawValue
         bird.physicsBody?.contactTestBitMask = CollisionType.Bullet.rawValue
-        bird.physicsBody?.collisionBitMask = CollisionType.Bullet.rawValue
+        bird.physicsBody?.collisionBitMask = 0
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
