@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		4A88618E1E7F577600D52D06 /* star_fields.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A88618D1E7F577600D52D06 /* star_fields.png */; };
 		4A8861901E7F62CE00D52D06 /* ExplosionParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4A88618F1E7F62CE00D52D06 /* ExplosionParticle.sks */; };
+		4A8861921E8219AC00D52D06 /* gameOver.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4A8861911E8219AC00D52D06 /* gameOver.mp3 */; };
+		4A8861941E8219F500D52D06 /* gameStart.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4A8861931E8219F500D52D06 /* gameStart.mp3 */; };
 		4AD90DAC1E7CEF9A00525B5D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD90DAB1E7CEF9A00525B5D /* AppDelegate.swift */; };
 		4AD90DAE1E7CEF9A00525B5D /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4AD90DAD1E7CEF9A00525B5D /* GameScene.sks */; };
 		4AD90DB01E7CEF9A00525B5D /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4AD90DAF1E7CEF9A00525B5D /* Actions.sks */; };
@@ -37,6 +39,8 @@
 /* Begin PBXFileReference section */
 		4A88618D1E7F577600D52D06 /* star_fields.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_fields.png; sourceTree = "<group>"; };
 		4A88618F1E7F62CE00D52D06 /* ExplosionParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ExplosionParticle.sks; sourceTree = "<group>"; };
+		4A8861911E8219AC00D52D06 /* gameOver.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = gameOver.mp3; sourceTree = "<group>"; };
+		4A8861931E8219F500D52D06 /* gameStart.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = gameStart.mp3; sourceTree = "<group>"; };
 		4AD90DA81E7CEF9A00525B5D /* PhoenixRedux.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhoenixRedux.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AD90DAB1E7CEF9A00525B5D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4AD90DAD1E7CEF9A00525B5D /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -128,6 +132,8 @@
 		782FE6161E819D100033E42C /* sounds */ = {
 			isa = PBXGroup;
 			children = (
+				4A8861931E8219F500D52D06 /* gameStart.mp3 */,
+				4A8861911E8219AC00D52D06 /* gameOver.mp3 */,
 				782FE6231E819E160033E42C /* explosion2.wav */,
 				782FE6241E819E160033E42C /* shot1.wav */,
 				782FE61B1E819D920033E42C /* shot3.wav */,
@@ -208,6 +214,7 @@
 				782FE61F1E819D920033E42C /* shot3.wav in Resources */,
 				4AF6FB7E1E7E770E00C0167F /* bird.png in Resources */,
 				4AD90DAE1E7CEF9A00525B5D /* GameScene.sks in Resources */,
+				4A8861921E8219AC00D52D06 /* gameOver.mp3 in Resources */,
 				4A88618E1E7F577600D52D06 /* star_fields.png in Resources */,
 				782FE6201E819D920033E42C /* explosion3.wav in Resources */,
 				782FE6221E819D920033E42C /* ShipHit.wav in Resources */,
@@ -217,6 +224,7 @@
 				789AA2DC1E81D4AC00C67024 /* start.png in Resources */,
 				4AF6FB7C1E7E67AB00C0167F /* bullet.png in Resources */,
 				782FE6251E819E160033E42C /* explosion2.wav in Resources */,
+				4A8861941E8219F500D52D06 /* gameStart.mp3 in Resources */,
 				4A8861901E7F62CE00D52D06 /* ExplosionParticle.sks in Resources */,
 				789AA2DB1E81D4AC00C67024 /* pause.png in Resources */,
 				4AD90DC41E7CF02500525B5D /* background@2x.png in Resources */,
