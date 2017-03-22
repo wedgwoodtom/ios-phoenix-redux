@@ -452,38 +452,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         hud.position = CGPoint(x: 0, y: hud.size.height)
         self.addChild(hud)
 
-        // Display the remaining lifes
-        // Add icons to display the remaining lifes
-        // Reuse the Spaceship image: Scale and position releative to the HUD size
-
-        //resetHUD()
-//        let lifeSize = CGSize(width: hud.size.height-18, height: hud.size.height-18)
-//        for i in 0..<shipsLeft-1 {
-//            let tmpNode = SKSpriteNode(imageNamed: "Spaceship.png")
-//            shipsLeftList.append(tmpNode)
-//            tmpNode.size = lifeSize
-//            tmpNode.position=CGPoint(x: tmpNode.size.width * 1.3 * (1.0 + CGFloat(i)), y: (hud.size.height-5)/2)
-//            hud.addChild(tmpNode)
-//        }
-
-
-        // Pause button container and label
-        // Needed to increase the touchable area
-        // Names will be used to identify these elements in the touch handler
-//        let pauseContainer = SKSpriteNode(imageNamed: "pause.png")
-//        pauseContainer.position = CGPoint(x: hud.size.width/1.5, y: 1)
-//        pauseContainer.size = CGSize(width: hud.size.height*3, height: hud.size.height*2)
-//        pauseContainer.name = "pauseButtonContainer"
-//        hud.addChild(pauseContainer)
-
-//        let pauseButton = SKLabelNode()
-//        pauseButton.position = CGPoint(x: hud.size.width/1.5, y: 1)
-//        pauseButton.text = "I I"
-//        pauseButton.fontSize=hud.size.height
-//        pauseButton.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
-//        pauseButton.name = "PauseButton"
-//        hud.addChild(pauseButton)
-
         // Display the current score
         self.score = 0
         self.scoreNode.position = CGPoint(x: hud.size.width-hud.size.width * 0.1, y: 1)
@@ -494,8 +462,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //self.scoreNode.font = UIFont.boldSystemFontOfSize(hud.size.height * 0.50)
         self.scoreNode.fontColor = .red
         hud.addChild(self.scoreNode)
-
-
     }
 
 
