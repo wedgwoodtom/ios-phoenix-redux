@@ -49,11 +49,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     private var ship : SKSpriteNode?
     
-    private var contentCreated : Bool = false;
+    private var contentCreated : Bool = false
 
     private var gameState: GameState = GameState.NotStarted
-    private var touchIsDown: Bool = false;
-    private var shipsLeft: Int = 1;
+    private var touchIsDown: Bool = false
+    private var shipsLeft: Int = 2
+    private var score: Int = 0
+    var scoreNode = SKLabelNode()
+    private var shipsLeftList = Array<SKSpriteNode>()
+    // heads up display
+    private var hud = SKSpriteNode()
+
 
     override func didMove(to view: SKView) {
         
@@ -117,6 +123,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     userInfo: nil,
                     repeats: true)
 
+            createHUD()
+            
             contentCreated = true
         }
     }
@@ -167,7 +175,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     func endGame() {
-
         toggleGameControls(on: true)
         gameState = GameState.NotStarted
         shipsLeft = 0;
@@ -176,7 +183,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func startGame() {
         playSound(sound: Sound.GameStart)
         toggleGameControls(on: false)
-        shipsLeft = 1;
+        shipsLeft = 3;
+        resetHUD()
         self.run(SKAction.wait(forDuration: 2.0), completion: { self.gameState = GameState.Running })
     }
 
@@ -311,8 +319,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         touchIsDown = false
     }
-    
-    
+
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
         //if (currentTime - self.timeOfLastMove < self.timePerMove) return;
@@ -378,6 +385,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
 
         playSound(sound: Sound.ShipExplosion)
+        updateHUDForShipDestroyed()
         ship?.run(SKAction.sequence(actions))
     }
 
@@ -398,6 +406,98 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         let explosionPosition = bird?.position
         explosion(pos: explosionPosition!)
+
+        updateHUDForScore()
     }
+
+
+    // TODO: Move to a class
+    
+    func updateHUDForScore() {
+        score += 100
+        self.scoreNode.text = "\(score)"
+    }
+
+    func updateHUDForShipDestroyed() {
+        if shipsLeftList.count == 0 {
+            return
+        }
+        let last: SKSpriteNode = shipsLeftList.removeLast()
+        last.run(SKAction.sequence([SKAction.fadeOut(withDuration: 1.5), SKAction.removeFromParent()]))
+    }
+
+    func resetHUD() {
+        score = 0;
+        self.scoreNode.text = "\(score)"
+
+        // reset lives left
+        let lifeSize = CGSize(width: hud.size.height-18, height: hud.size.height-18)
+        shipsLeftList.removeAll()
+        for i in 0..<shipsLeft-1 {
+            let tmpNode = SKSpriteNode(imageNamed: "Spaceship.png")
+            shipsLeftList.append(tmpNode)
+            tmpNode.size = lifeSize
+            tmpNode.position=CGPoint(x: tmpNode.size.width * 1.3 * (1.0 + CGFloat(i)), y: (hud.size.height-5)/2)
+            hud.addChild(tmpNode)
+        }
+    }
+    
+    func createHUD() {
+        //var hud = SKSpriteNode(color: .black, size: CGSize(width: self.size.width, height: self.size.height * 0.05)
+        //let hud = SKSpriteNode()
+        //hud.color = .black
+        hud.size = CGSize(width: self.size.width, height: self.size.height * 0.05)
+        hud.anchorPoint = CGPoint(x: 0, y: 0)
+        //hud.position = CGPoint(x: 0, y: self.size.height-hud.size.height)
+        hud.position = CGPoint(x: 0, y: hud.size.height)
+        self.addChild(hud)
+
+        // Display the remaining lifes
+        // Add icons to display the remaining lifes
+        // Reuse the Spaceship image: Scale and position releative to the HUD size
+
+        //resetHUD()
+//        let lifeSize = CGSize(width: hud.size.height-18, height: hud.size.height-18)
+//        for i in 0..<shipsLeft-1 {
+//            let tmpNode = SKSpriteNode(imageNamed: "Spaceship.png")
+//            shipsLeftList.append(tmpNode)
+//            tmpNode.size = lifeSize
+//            tmpNode.position=CGPoint(x: tmpNode.size.width * 1.3 * (1.0 + CGFloat(i)), y: (hud.size.height-5)/2)
+//            hud.addChild(tmpNode)
+//        }
+
+
+        // Pause button container and label
+        // Needed to increase the touchable area
+        // Names will be used to identify these elements in the touch handler
+//        let pauseContainer = SKSpriteNode(imageNamed: "pause.png")
+//        pauseContainer.position = CGPoint(x: hud.size.width/1.5, y: 1)
+//        pauseContainer.size = CGSize(width: hud.size.height*3, height: hud.size.height*2)
+//        pauseContainer.name = "pauseButtonContainer"
+//        hud.addChild(pauseContainer)
+
+//        let pauseButton = SKLabelNode()
+//        pauseButton.position = CGPoint(x: hud.size.width/1.5, y: 1)
+//        pauseButton.text = "I I"
+//        pauseButton.fontSize=hud.size.height
+//        pauseButton.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
+//        pauseButton.name = "PauseButton"
+//        hud.addChild(pauseButton)
+
+        // Display the current score
+        self.score = 0
+        self.scoreNode.position = CGPoint(x: hud.size.width-hud.size.width * 0.1, y: 1)
+        self.scoreNode.text = "0"
+        //self.scoreNode.fontSize = hud.size.height * 0.50
+        self.scoreNode.fontName = "Helvetica Neue Medium"
+        self.scoreNode.fontSize = 25
+        //self.scoreNode.font = UIFont.boldSystemFontOfSize(hud.size.height * 0.50)
+        self.scoreNode.fontColor = .red
+        hud.addChild(self.scoreNode)
+
+
+    }
+
+
 }
 
