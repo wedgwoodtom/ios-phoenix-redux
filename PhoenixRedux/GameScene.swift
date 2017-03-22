@@ -172,7 +172,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     func startGame() {
-
+        playSound(sound: Sound.GameStart)
         toggleGameControls(on: false)
         shipsLeft = 1;
         self.run(SKAction.wait(forDuration: 2.0), completion: { self.gameState = GameState.Running })
