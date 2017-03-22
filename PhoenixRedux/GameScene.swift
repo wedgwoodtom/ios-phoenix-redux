@@ -271,17 +271,50 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bird.name = "bird"
         bird.xScale = 0.75
         bird.yScale = 0.75
-//        let randomX = Int(arc4random_uniform(UInt32(Int(self.size.width))) + 1)
 
-        let randomX = GKRandomSource.sharedRandom().nextInt(upperBound: Int(self.size.width))
-        
-        bird.position = CGPoint(x: randomX, y: Int(self.size.height - bird.size.height / 2))
+//        //let randomX = Int(arc4random_uniform(UInt32(Int(self.size.width))) + 1)
+//        let randomX = GKRandomSource.sharedRandom().nextInt(upperBound: Int(self.size.width))
+//
+//        bird.position = CGPoint(x: randomX, y: Int(self.size.height - bird.size.height / 2))
+//
+//        let spin = SKAction.rotate(byAngle: CGFloat(3*M_PI), duration: 0.5)
+//        let fly = SKAction.moveTo(y: 0, duration: 3)
+//        let delete = SKAction.removeFromParent()
+////        bird.run(SKAction.sequence([spin, fly, delete]))
+//        bird.run(SKAction.sequence([fly, delete]))
 
-        let spin = SKAction.rotate(byAngle: CGFloat(3*M_PI), duration: 0.5)
-        let fly = SKAction.moveTo(y: 0, duration: 3)
+
+        // create more random path
+        let minX = Double(0 + bird.size.width)
+        let maxX = Double(self.size.width - bird.size.width)
+        let minY = Double(0 - bird.size.height / 2)
+        let maxY = Double(self.size.height - bird.size.height / 2)
+        let x0 = Double(GKRandomSource.sharedRandom().nextInt(upperBound: Int(self.size.width)))
+        let y0 = Double(self.size.height - bird.size.height / 2)
+        let x1 = maxX
+        let y1 = Double(GKRandomSource.sharedRandom().nextInt(upperBound: Int(maxY)))
+        let x2 = minX
+        let y2 = Double(GKRandomSource.sharedRandom().nextInt(upperBound: Int(maxY)))
+        let x3 = Double(GKRandomSource.sharedRandom().nextInt(upperBound: Int(self.size.width)))
+        let y3 = minY
+
+        bird.position = CGPoint(x: x0, y: y0)
+        let fly1 = SKAction.move(to: CGPoint(x: x1, y: y1), duration: 1)
+        let fly2 = SKAction.move(to: CGPoint(x: x2, y: y2), duration: 1)
+        let fly3 = SKAction.move(to: CGPoint(x: x3, y: y3), duration: 1)
         let delete = SKAction.removeFromParent()
-//        bird.run(SKAction.sequence([spin, fly, delete]))
-        bird.run(SKAction.sequence([fly, delete]))
+        bird.run(SKAction.sequence([fly1, fly2, fly3, delete]))
+
+        // move as path instead
+//        var path = CGMutablePath()
+//        path.addLine(to: CGPoint(x: x0, y: y0))
+//        path.move(to: CGPoint(x: x1, y: y1))
+//        path.move(to: CGPoint(x: x2, y: y2))
+//        path.move(to: CGPoint(x: x3, y: y3))
+//        path.closeSubpath()
+//        var followPath = SKAction.follow(path, asOffset: true, orientToPath: false, duration: 3)
+//        bird.run(SKAction.sequence([followPath, delete]))
+
 
         self.addChild(bird)
 
