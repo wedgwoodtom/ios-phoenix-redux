@@ -183,7 +183,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func startGame() {
         playSound(sound: Sound.GameStart)
         toggleGameControls(on: false)
-        shipsLeft = 3;
+        shipsLeft = 5;
         resetHUD()
         self.run(SKAction.wait(forDuration: 2.0), completion: { self.gameState = GameState.Running })
     }
@@ -303,7 +303,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let fly2 = SKAction.move(to: CGPoint(x: x2, y: y2), duration: 1)
         let fly3 = SKAction.move(to: CGPoint(x: x3, y: y3), duration: 1)
         let delete = SKAction.removeFromParent()
-        bird.run(SKAction.sequence([fly1, fly2, fly3, delete]))
+        //bird.run(SKAction.sequence([fly1, fly2, fly3, delete]))
+        bird.run(SKAction.sequence([fly1, fly2, fly3, delete]), completion: {
+                // TODO: clean these sounds up a bit - modify this one (too harch)
+                self.playSound(sound: Sound.BirdShot)
+                self.updateHUDForScoreDecrement()
+            }
+        )
 
         // move as path instead
 //        var path = CGMutablePath()
@@ -393,7 +399,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
 
         let fadeOut = SKAction.fadeOut(withDuration: 0.5)
-        let move = SKAction.move(to: CGPoint(x: self.size.width/2, y: self.size.height/8), duration: 0.5)
+        let move = SKAction.move(to: CGPoint(x: self.size.width/2, y: (ship?.position.y)!), duration: 0.5)
         let fadeIn = SKAction.fadeIn(withDuration: 1.5)
         let firing = SKAction.run({
             self.gameState = GameState.Running
@@ -411,7 +417,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
             if let gameOverLabel = self.gameOverLabel {
                 gameOverLabel.position = CGPoint(x: self.size.width/2, y:  self.size.height + 200)
-                gameOverLabel.run(SKAction.move(to: CGPoint(x: self.size.width/2, y: self.size.height/4.5), duration: 5.0))
+                gameOverLabel.run(SKAction.move(to: CGPoint(x: self.size.width/2, y: self.size.height/3.2), duration: 5.0))
             }
 
             actions = [fadeOut, gameOver, fadeIn, move, endGame]
@@ -445,7 +451,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
 
     // TODO: Move to a class
-    
+
+    func updateHUDForScoreDecrement() {
+        score -= 200
+        self.scoreNode.text = "\(score)"
+    }
+
     func updateHUDForScore() {
         score += 100
         self.scoreNode.text = "\(score)"
@@ -476,22 +487,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func createHUD() {
-        //var hud = SKSpriteNode(color: .black, size: CGSize(width: self.size.width, height: self.size.height * 0.05)
-        //let hud = SKSpriteNode()
         //hud.color = .black
         hud.size = CGSize(width: self.size.width, height: self.size.height * 0.05)
+
         hud.anchorPoint = CGPoint(x: 0, y: 0)
-        //hud.position = CGPoint(x: 0, y: self.size.height-hud.size.height)
-        hud.position = CGPoint(x: 0, y: hud.size.height)
+        hud.position = CGPoint(x: 0, y: self.size.height-hud.size.height)
+//        hud.position = CGPoint(x: 0, y: hud.size.height)
+        // hack for iPad - how to fix this?
+        if (UIDevice.current.userInterfaceIdiom == .pad) {
+            hud.position.y -= 175
+        }
         self.addChild(hud)
 
         // Display the current score
         self.score = 0
-        self.scoreNode.position = CGPoint(x: hud.size.width-hud.size.width * 0.1, y: 1)
+//        self.scoreNode.position = CGPoint(x: hud.size.width-hud.size.width * 0.1, y: 1)
+        self.scoreNode.position = CGPoint(x: hud.size.width-hud.size.width * 0.1, y: 20)
         self.scoreNode.text = "0"
         //self.scoreNode.fontSize = hud.size.height * 0.50
         self.scoreNode.fontName = "Helvetica Neue Medium"
-        self.scoreNode.fontSize = 25
+        self.scoreNode.fontSize = 30
         //self.scoreNode.font = UIFont.boldSystemFontOfSize(hud.size.height * 0.50)
         self.scoreNode.fontColor = .red
         hud.addChild(self.scoreNode)
