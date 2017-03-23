@@ -5,6 +5,9 @@
 //  Created by Tom on 3/17/17.
 //  Copyright © 2017 Tom Patterson. All rights reserved.
 //
+/**
+    A work in progress for Lab Week - stratch your inner-Geek!
+ **/
 
 import SpriteKit
 import GameplayKit
@@ -160,17 +163,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     gameOverLabel.position = CGPoint(x: self.size.width/2, y:  self.size.height + 200)
                 }
             }
-            /*
-             if (!on) {
-                if let gameOverLabel = self.gameOverLabel {
-                    gameOverLabel.alpha = 0.0
-                    gameOverLabel.run(SKAction.fadeOut(withDuration: 2.0), completion: {
-                        gameOverLabel.position = CGPoint(x: self.size.width/2, y:  self.size.height + 200)
-                    })
-                }
-            }
-            */
-
         }
     }
 
@@ -183,7 +175,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func startGame() {
         playSound(sound: Sound.GameStart)
         toggleGameControls(on: false)
-        shipsLeft = 5;
+        shipsLeft = 3;
         resetHUD()
         self.run(SKAction.wait(forDuration: 2.0), completion: { self.gameState = GameState.Running })
     }
@@ -208,7 +200,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     // TODO: Look at cleaning this up - make it a soundPLayer/Manager or something?
     func playSound(sound: Sound, now: Bool = true) {
-
+        //print("Playing sound \(sound.rawValue)")
         let sound = SKAction.playSoundFileNamed(sound.rawValue, waitForCompletion: false)
         if (now) {
             self.run(sound)
@@ -272,18 +264,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bird.xScale = 0.75
         bird.yScale = 0.75
 
-//        //let randomX = Int(arc4random_uniform(UInt32(Int(self.size.width))) + 1)
-//        let randomX = GKRandomSource.sharedRandom().nextInt(upperBound: Int(self.size.width))
-//
-//        bird.position = CGPoint(x: randomX, y: Int(self.size.height - bird.size.height / 2))
-//
-//        let spin = SKAction.rotate(byAngle: CGFloat(3*M_PI), duration: 0.5)
-//        let fly = SKAction.moveTo(y: 0, duration: 3)
-//        let delete = SKAction.removeFromParent()
-////        bird.run(SKAction.sequence([spin, fly, delete]))
-//        bird.run(SKAction.sequence([fly, delete]))
-
-
         // create more random path
         let minX = Double(0 + bird.size.width)
         let maxX = Double(self.size.width - bird.size.width)
@@ -310,17 +290,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 self.updateHUDForScoreDecrement()
             }
         )
-
-        // move as path instead
-//        var path = CGMutablePath()
-//        path.addLine(to: CGPoint(x: x0, y: y0))
-//        path.move(to: CGPoint(x: x1, y: y1))
-//        path.move(to: CGPoint(x: x2, y: y2))
-//        path.move(to: CGPoint(x: x3, y: y3))
-//        path.closeSubpath()
-//        var followPath = SKAction.follow(path, asOffset: true, orientToPath: false, duration: 3)
-//        bird.run(SKAction.sequence([followPath, delete]))
-
 
         self.addChild(bird)
 
@@ -397,7 +366,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         self.explosion(pos: (ship?.position)!)
 
-
         let fadeOut = SKAction.fadeOut(withDuration: 0.5)
         let move = SKAction.move(to: CGPoint(x: self.size.width/2, y: (ship?.position.y)!), duration: 0.5)
         let fadeIn = SKAction.fadeIn(withDuration: 1.5)
@@ -466,22 +434,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if shipsLeftList.count == 0 {
             return
         }
+        
         let last: SKSpriteNode = shipsLeftList.removeLast()
         last.run(SKAction.sequence([SKAction.fadeOut(withDuration: 1.5), SKAction.removeFromParent()]))
+        // TODO: below should not be necessary.  However, without it, the lives are not drawn on the iPhone although it works as expected in the simulator
+        drawRemaingLives()
     }
 
     func resetHUD() {
         score = 0;
         self.scoreNode.text = "\(score)"
-
+        drawRemaingLives()
+    }
+    
+    func drawRemaingLives() {
         // reset lives left
         let lifeSize = CGSize(width: hud.size.height-18, height: hud.size.height-18)
+        hud.removeChildren(in: shipsLeftList)
         shipsLeftList.removeAll()
+        
         for i in 0..<shipsLeft-1 {
             let tmpNode = SKSpriteNode(imageNamed: "Spaceship.png")
             shipsLeftList.append(tmpNode)
             tmpNode.size = lifeSize
             tmpNode.position=CGPoint(x: tmpNode.size.width * 1.3 * (1.0 + CGFloat(i)), y: (hud.size.height-5)/2)
+            tmpNode.name = "shipLifeIcon"
             hud.addChild(tmpNode)
         }
     }
@@ -503,7 +480,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.score = 0
 //        self.scoreNode.position = CGPoint(x: hud.size.width-hud.size.width * 0.1, y: 1)
         self.scoreNode.position = CGPoint(x: hud.size.width-hud.size.width * 0.1, y: 20)
-        self.scoreNode.text = "0"
+        self.scoreNode.text = ""
         //self.scoreNode.fontSize = hud.size.height * 0.50
         self.scoreNode.fontName = "Helvetica Neue Medium"
         self.scoreNode.fontSize = 30
