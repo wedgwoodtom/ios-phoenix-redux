@@ -17,6 +17,7 @@ import Foundation
 enum Sound: String {
     case ShipShot = "shot1.wav"
     case BirdShot = "shot2.wav"
+    case BirdGotAway = "shot4.mp3"
     case BirdExplosion = "explosion2.wav"
     case ShipExplosion = "ShipHit.wav"
     case GameOver = "gameOver.mp3"
@@ -25,7 +26,7 @@ enum Sound: String {
 
     // TODO: Lame that I have to do this
     static func all() -> Array<Sound> {
-        return [ShipShot, BirdShot, BirdExplosion, ShipExplosion, GameOver, GameStart, GameInit]
+        return [ShipShot, BirdShot, BirdExplosion, ShipExplosion, GameOver, GameStart, GameInit, BirdGotAway]
     }
 }
 
@@ -112,15 +113,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             playSound(sound: Sound.GameInit)
             toggleGameControls(on: true)
 
-            let firingTimer = Timer.scheduledTimer(
-                    timeInterval: 0.4,
+            Timer.scheduledTimer(
+                    timeInterval: 0.5,
                     target: self,
                     selector: #selector(self.fireBullet),
                     userInfo: nil,
                     repeats: true)
 
-            let birdTimer = Timer.scheduledTimer(
-                    timeInterval: 1,
+            Timer.scheduledTimer(
+                    timeInterval: 0.9,
                     target: self,
                     selector: #selector(self.spawnPhoenix),
                     userInfo: nil,
@@ -134,7 +135,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     func toggleGameControls(on: Bool = true) {
 
-        var action = on ? SKAction.fadeIn(withDuration: 2.0) : SKAction.fadeOut(withDuration: 2.0)
+        let action = on ? SKAction.fadeIn(withDuration: 2.0) : SKAction.fadeOut(withDuration: 2.0)
 
         if let label = self.titleLabel {
             label.position = CGPoint(x: self.size.width/2, y: self.size.height/1.5)
@@ -201,10 +202,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // TODO: Look at cleaning this up - make it a soundPLayer/Manager or something?
     func playSound(sound: Sound, now: Bool = true) {
         //print("Playing sound \(sound.rawValue)")
-        let sound = SKAction.playSoundFileNamed(sound.rawValue, waitForCompletion: false)
+        
         if (now) {
-            self.run(sound)
+            SKTAudio.sharedInstance().playSoundEffect(sound.rawValue)
         }
+        
+        //let sound = SKAction.playSoundFileNamed(sound.rawValue, waitForCompletion: false)
+        //if (now) {
+        //    self.run(sound)
+        //}
     }
 
     func handleTouch(toPoint pos : CGPoint) {
@@ -286,7 +292,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //bird.run(SKAction.sequence([fly1, fly2, fly3, delete]))
         bird.run(SKAction.sequence([fly1, fly2, fly3, delete]), completion: {
                 // TODO: clean these sounds up a bit - modify this one (too harch)
-                self.playSound(sound: Sound.BirdShot)
+                self.playSound(sound: Sound.BirdGotAway)
                 self.updateHUDForScoreDecrement()
             }
         )

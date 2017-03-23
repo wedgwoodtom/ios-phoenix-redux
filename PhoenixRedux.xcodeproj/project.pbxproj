@@ -33,6 +33,7 @@
 		782FE6221E819D920033E42C /* ShipHit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 782FE61E1E819D920033E42C /* ShipHit.wav */; };
 		782FE6251E819E160033E42C /* explosion2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 782FE6231E819E160033E42C /* explosion2.wav */; };
 		782FE6261E819E160033E42C /* shot1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 782FE6241E819E160033E42C /* shot1.wav */; };
+		7844CC711E84849A00DD73DD /* SKTAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7844CC701E84849A00DD73DD /* SKTAudio.swift */; };
 		789AA2DB1E81D4AC00C67024 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 789AA2D91E81D4AC00C67024 /* pause.png */; };
 		789AA2DC1E81D4AC00C67024 /* start.png in Resources */ = {isa = PBXBuildFile; fileRef = 789AA2DA1E81D4AC00C67024 /* start.png */; };
 /* End PBXBuildFile section */
@@ -66,6 +67,7 @@
 		782FE61E1E819D920033E42C /* ShipHit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ShipHit.wav; sourceTree = "<group>"; };
 		782FE6231E819E160033E42C /* explosion2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion2.wav; sourceTree = "<group>"; };
 		782FE6241E819E160033E42C /* shot1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shot1.wav; sourceTree = "<group>"; };
+		7844CC701E84849A00DD73DD /* SKTAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTAudio.swift; sourceTree = "<group>"; };
 		789AA2D91E81D4AC00C67024 /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
 		789AA2DA1E81D4AC00C67024 /* start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -106,6 +108,7 @@
 				4AD90DAB1E7CEF9A00525B5D /* AppDelegate.swift */,
 				4AD90DAD1E7CEF9A00525B5D /* GameScene.sks */,
 				4AD90DAF1E7CEF9A00525B5D /* Actions.sks */,
+				7844CC701E84849A00DD73DD /* SKTAudio.swift */,
 				4AD90DB11E7CEF9A00525B5D /* GameScene.swift */,
 				4AD90DB31E7CEF9A00525B5D /* GameViewController.swift */,
 				4AD90DB51E7CEF9A00525B5D /* Main.storyboard */,
@@ -245,6 +248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AD90DB21E7CEF9A00525B5D /* GameScene.swift in Sources */,
+				7844CC711E84849A00DD73DD /* SKTAudio.swift in Sources */,
 				4AD90DB41E7CEF9A00525B5D /* GameViewController.swift in Sources */,
 				4AD90DAC1E7CEF9A00525B5D /* AppDelegate.swift in Sources */,
 			);
