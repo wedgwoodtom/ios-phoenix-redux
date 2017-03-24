@@ -36,7 +36,15 @@
 		7844CC711E84849A00DD73DD /* SKTAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7844CC701E84849A00DD73DD /* SKTAudio.swift */; };
 		789AA2DB1E81D4AC00C67024 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 789AA2D91E81D4AC00C67024 /* pause.png */; };
 		789AA2DC1E81D4AC00C67024 /* start.png in Resources */ = {isa = PBXBuildFile; fileRef = 789AA2DA1E81D4AC00C67024 /* start.png */; };
-		B2447BA10FC244418F2E3841 /* HeadsUpDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2447C6B96BE2CDF1C11C6A8 /* HeadsUpDisplay.swift */; };
+		D3A03196CBF90A8C1F1A2A19 /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A039BCDFCAB80B95852D19 /* Bullet.swift */; };
+		D3A0364855275F4AEAB55DA2 /* CollisionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A0397FDC139C81EC160923 /* CollisionHandler.swift */; };
+		D3A036907F5F4CAC5D2A84F5 /* CollisionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A0309873942672D1945F99 /* CollisionType.swift */; };
+		D3A0373258D13FDB56F74BF3 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A03B81C2E1EAFF3BC7D56A /* GameState.swift */; };
+		D3A0375F34737CC1B55B46ED /* Phoenix.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A03825017DBBED25418EAC /* Phoenix.swift */; };
+		D3A038E73A68E78F7FCE6783 /* HeadsUpDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A031D3EE39373ADDEC9709 /* HeadsUpDisplay.swift */; };
+		D3A03CD3DBB885F5BBE041CC /* GameControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A03C83E126D82FCD48D861 /* GameControls.swift */; };
+		D3A03D1CB76974A4BD35FAA8 /* SoundAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A0353552A82ADD47AE4506 /* SoundAction.swift */; };
+		D3A03D87DD883A2C456702F1 /* Ship.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A038E42753503646CC187C /* Ship.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,7 +79,15 @@
 		7844CC701E84849A00DD73DD /* SKTAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTAudio.swift; sourceTree = "<group>"; };
 		789AA2D91E81D4AC00C67024 /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
 		789AA2DA1E81D4AC00C67024 /* start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start.png; sourceTree = "<group>"; };
-		B2447C6B96BE2CDF1C11C6A8 /* HeadsUpDisplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeadsUpDisplay.swift; sourceTree = "<group>"; };
+		D3A0309873942672D1945F99 /* CollisionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollisionType.swift; sourceTree = "<group>"; };
+		D3A031D3EE39373ADDEC9709 /* HeadsUpDisplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeadsUpDisplay.swift; sourceTree = "<group>"; };
+		D3A0353552A82ADD47AE4506 /* SoundAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundAction.swift; sourceTree = "<group>"; };
+		D3A03825017DBBED25418EAC /* Phoenix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Phoenix.swift; sourceTree = "<group>"; };
+		D3A038E42753503646CC187C /* Ship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ship.swift; sourceTree = "<group>"; };
+		D3A0397FDC139C81EC160923 /* CollisionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollisionHandler.swift; sourceTree = "<group>"; };
+		D3A039BCDFCAB80B95852D19 /* Bullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
+		D3A03B81C2E1EAFF3BC7D56A /* GameState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
+		D3A03C83E126D82FCD48D861 /* GameControls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameControls.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,7 +133,8 @@
 				4AD90DB81E7CEF9A00525B5D /* Assets.xcassets */,
 				4AD90DBA1E7CEF9A00525B5D /* LaunchScreen.storyboard */,
 				4AD90DBD1E7CEF9A00525B5D /* Info.plist */,
-				B2447C6B96BE2CDF1C11C6A8 /* HeadsUpDisplay.swift */,
+				D3A036D5AA009599B8C7161F /* enum */,
+				D3A03CF47D66248494419CA3 /* sprite */,
 			);
 			path = PhoenixRedux;
 			sourceTree = "<group>";
@@ -153,6 +170,29 @@
 				782FE6171E819D1F0033E42C /* explosion1.mp3 */,
 			);
 			name = sounds;
+			sourceTree = "<group>";
+		};
+		D3A036D5AA009599B8C7161F /* enum */ = {
+			isa = PBXGroup;
+			children = (
+				D3A0309873942672D1945F99 /* CollisionType.swift */,
+				D3A03B81C2E1EAFF3BC7D56A /* GameState.swift */,
+				D3A0353552A82ADD47AE4506 /* SoundAction.swift */,
+			);
+			path = enum;
+			sourceTree = "<group>";
+		};
+		D3A03CF47D66248494419CA3 /* sprite */ = {
+			isa = PBXGroup;
+			children = (
+				D3A03C83E126D82FCD48D861 /* GameControls.swift */,
+				D3A031D3EE39373ADDEC9709 /* HeadsUpDisplay.swift */,
+				D3A03825017DBBED25418EAC /* Phoenix.swift */,
+				D3A038E42753503646CC187C /* Ship.swift */,
+				D3A039BCDFCAB80B95852D19 /* Bullet.swift */,
+				D3A0397FDC139C81EC160923 /* CollisionHandler.swift */,
+			);
+			path = sprite;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -254,7 +294,15 @@
 				7844CC711E84849A00DD73DD /* SKTAudio.swift in Sources */,
 				4AD90DB41E7CEF9A00525B5D /* GameViewController.swift in Sources */,
 				4AD90DAC1E7CEF9A00525B5D /* AppDelegate.swift in Sources */,
-				B2447BA10FC244418F2E3841 /* HeadsUpDisplay.swift in Sources */,
+				D3A036907F5F4CAC5D2A84F5 /* CollisionType.swift in Sources */,
+				D3A0373258D13FDB56F74BF3 /* GameState.swift in Sources */,
+				D3A03D1CB76974A4BD35FAA8 /* SoundAction.swift in Sources */,
+				D3A03CD3DBB885F5BBE041CC /* GameControls.swift in Sources */,
+				D3A038E73A68E78F7FCE6783 /* HeadsUpDisplay.swift in Sources */,
+				D3A0375F34737CC1B55B46ED /* Phoenix.swift in Sources */,
+				D3A03D87DD883A2C456702F1 /* Ship.swift in Sources */,
+				D3A03196CBF90A8C1F1A2A19 /* Bullet.swift in Sources */,
+				D3A0364855275F4AEAB55DA2 /* CollisionHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
