@@ -3,9 +3,9 @@
 // Copyright (c) 2017 Tom Patterson. All rights reserved.
 //
 
-import Foundation
-
+import UIKit
 import SpriteKit
+import GameplayKit
 
 class HeadsUpDisplay {
 
@@ -13,13 +13,17 @@ class HeadsUpDisplay {
     var scoreNode = SKLabelNode()
     private var shipsLeftList = Array<SKSpriteNode>()
     // heads up display
-    private var hud = SKSpriteNode()
+    private var hud: SKSpriteNode!
+    private var scene: SKScene!
 
-    public func init() {
+
+    init(from: SKScene) {
+        // perform some initialization here
+        scene = from
         createHUD()
     }
 
-    func SKSpriteNode() -> SKSpriteNode {
+    func HUDNode() -> SKSpriteNode {
         return hud
     }
 
@@ -41,16 +45,16 @@ class HeadsUpDisplay {
         let last: SKSpriteNode = shipsLeftList.removeLast()
         last.run(SKAction.sequence([SKAction.fadeOut(withDuration: 1.5), SKAction.removeFromParent()]))
         // TODO: below should not be necessary.  However, without it, the lives are not drawn on the iPhone although it works as expected in the simulator
-        drawRemaingLives()
+        drawRemaingLives(shipsLeft: shipsLeftList.count)
     }
 
     func resetHUD() {
         score = 0;
         self.scoreNode.text = "\(score)"
-        drawRemaingLives()
+        drawRemaingLives(shipsLeft: shipsLeftList.count)
     }
 
-    func drawRemaingLives() {
+    func drawRemaingLives(shipsLeft: Int) {
         // reset lives left
         let lifeSize = CGSize(width: hud.size.height-18, height: hud.size.height-18)
         hud.removeChildren(in: shipsLeftList)
@@ -67,17 +71,19 @@ class HeadsUpDisplay {
     }
 
     func createHUD() {
+        hud = SKSpriteNode()
+
         //hud.color = .black
-        hud.size = CGSize(width: self.size.width, height: self.size.height * 0.05)
+        hud.size = CGSize(width: scene.size.width, height: scene.size.height * 0.05)
 
         hud.anchorPoint = CGPoint(x: 0, y: 0)
-        hud.position = CGPoint(x: 0, y: self.size.height-hud.size.height)
+        hud.position = CGPoint(x: 0, y: scene.size.height-hud.size.height)
 //        hud.position = CGPoint(x: 0, y: hud.size.height)
         // hack for iPad - how to fix this?
         if (UIDevice.current.userInterfaceIdiom == .pad) {
             hud.position.y -= 175
         }
-        self.addChild(hud)
+        scene.addChild(hud)
 
         // Display the current score
         self.score = 0
