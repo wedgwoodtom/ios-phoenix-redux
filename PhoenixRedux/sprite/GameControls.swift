@@ -15,6 +15,7 @@ class GameControls {
     private var gameOverLabel: SKLabelNode!
     private var highScoresLabel: SKLabelNode!
     private var scene: SKScene!
+    private var topScoreIndex: Int
 
     init(from: SKScene) {
         scene = from
@@ -25,6 +26,7 @@ class GameControls {
         self.titleStart = scene.childNode(withName: "titleStart") as? SKSpriteNode
         self.gameOverLabel = scene.childNode(withName: "gameOverLabel") as? SKLabelNode
         self.highScoresLabel = scene.childNode(withName: "highScoreLabel") as? SKLabelNode
+        self.topScoreIndex = -1
     }
 
     func toggleGameControls(on: Bool = true) {
@@ -55,6 +57,10 @@ class GameControls {
 
             if let highScoresLabel = self.highScoresLabel {
                 highScoresLabel.position = CGPoint(x: scene.size.width/2, y: scene.size.height/2 - 100)
+                highScoresLabel.alpha = 0.0
+                //if (!on) {
+                    highScoresLabel.removeAllActions()
+                //}
             }
             
             if (!on) {
@@ -71,38 +77,24 @@ class GameControls {
     }
     
     func showHighScores(scores: [Score]) {
-        highScoresLabel.alpha = 1.0
-        
-        let wait = SKAction.wait(forDuration: 0.5)
-        var actions: [SKAction] = []
-        var index = 0
-        for score in scores {
-            index = index + 1
-            actions.append(SKAction.run({
-                self.highScoresLabel.text = "\(index) \(score.id) \(score.score)"
-            })
-            )
-            actions.append(wait)
+        topScoreIndex = -1
+        let wait = SKAction.wait(forDuration: 3)
+        let updateTopScore = SKAction.run {
+            self.cycleThroughScores(scores: scores)
         }
-        
-        
-//        let wait = SKAction.wait(forDuration: 0.5)
-//        let block = SKAction.run({
-//            self.highScoresLabel.text = "1.   wedgwood.tom    10000"
-//        })
-//        
-        let sequence = SKAction.sequence(actions)
-        
-        self.highScoresLabel.run(SKAction.repeat(sequence, count: 3))
-        //counterLabel.runAction(SKAction.repeatAction(sequence, count: 10))
-        
-        //    func scoresReturned(scores: [Score]) {
-        //        for score in scores {
-        //            print("Player: \(score.id) has score \(score.score)")
-        //        }
-        //    }
-        
-        
+        let fadeOut = SKAction.fadeOut(withDuration: 1)
+        let sequence = SKAction.sequence([updateTopScore, wait, fadeOut])
+        self.highScoresLabel.run(SKAction.repeatForever(sequence))
+    }
+    
+    func cycleThroughScores(scores: [Score]) {
+        topScoreIndex = topScoreIndex + 1
+        if (topScoreIndex == scores.count) {
+            topScoreIndex = 0
+        }
+        let score = scores[topScoreIndex]
+        highScoresLabel.text = "#\(topScoreIndex+1) Pilot...\(score.id.padding(toLength: 12, withPad: ".", startingAt: 0))...\(score.score) Pts!!"
+        highScoresLabel.alpha = 1.0
     }
 
 }
