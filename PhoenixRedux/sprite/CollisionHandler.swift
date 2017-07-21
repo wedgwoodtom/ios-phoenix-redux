@@ -61,9 +61,12 @@ class CollisionHandler {
             let endGame = SKAction.run({
                 self.gameScene.endGame()
             })
+            let showHighScores = SKAction.run({
+                self.gameScene.showHighScores()
+            })
 
             gameScene.gameControls.dropGameOverLabel()
-            actions = [fadeOut, gameOver, fadeIn, move, endGame]
+            actions = [fadeOut, gameOver, fadeIn, move, endGame, showHighScores]
         }
 
         ship?.run(SKAction.sequence(actions))

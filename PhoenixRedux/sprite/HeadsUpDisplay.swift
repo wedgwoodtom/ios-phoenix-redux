@@ -9,7 +9,7 @@ import GameplayKit
 
 class HeadsUpDisplay {
 
-    private var score: Int = 0
+    public var score: Int = 0
     var scoreNode = SKLabelNode()
     private var shipsLeftList = Array<SKSpriteNode>()
     // heads up display
@@ -55,7 +55,7 @@ class HeadsUpDisplay {
     }
 
     func startGame() {
-        shipsLeft = 3;
+        shipsLeft = 1;
         reDrawRemaingLives()
     }
 
@@ -68,6 +68,7 @@ class HeadsUpDisplay {
         score += 100
         scoreNode.text = "\(score)"
     }
+    
 
     // return true if the game is over
     func shipDestroyed()  -> Bool {

@@ -80,6 +80,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gameControls.toggleGameControls(on: true)
         hud.endGame()
     }
+    
+    func showHighScores() {
+        let myScore = hud.score
+        let scoreClient = ScoreClient()
+        scoreClient.submitScore(userId: "codeSith777", gameId: "phoenixRedux", score: myScore) { (scores: [Score]) in
+            self.gameControls.showHighScores(scores: scores)
+        }
+    }
 
     func fireBullet() {
 
