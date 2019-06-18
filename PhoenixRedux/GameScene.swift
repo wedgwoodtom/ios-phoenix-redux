@@ -89,7 +89,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
 
-    func fireBullet() {
+    @objc func fireBullet() {
 
         if (touchIsDown == false || gameState != GameState.Running) {
             return
@@ -98,7 +98,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(Bullet(gameScene: self, position: ship.position()).bulletSpriteNode)
     }
 
-    func spawnPhoenix() {
+    @objc func spawnPhoenix() {
 
         if (gameState != GameState.Running) {
             return
